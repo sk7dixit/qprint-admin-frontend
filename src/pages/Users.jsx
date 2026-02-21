@@ -51,7 +51,7 @@ export default function Users() {
     const displayUsers = users.map(u => ({
         ...u,
         role: detectRole(u),
-        status: u.profile_complete ? 'completed' : 'pending',
+        status: u.is_profile_complete ? 'completed' : 'pending',
         enroll_id: u.enrollment_id || 'NOT_SET',
         created: new Date(u.created_at).toLocaleDateString()
     }));

@@ -22,10 +22,24 @@ const AdminProtectedRoute = ({ children }) => {
     return children;
 };
 
+const AdminPublicRoute = ({ children }) => {
+    const { user, loading } = useAuth();
+    if (loading) return null;
+    if (user && user.role === "admin") return <Navigate to="/dashboard" replace />;
+    return children;
+};
+
 export default function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Login />} />
+            <Route
+                path="/"
+                element={
+                    <AdminPublicRoute>
+                        <Login />
+                    </AdminPublicRoute>
+                }
+            />
 
             {/* Unified Obsidian Layout */}
             <Route
